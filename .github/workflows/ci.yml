@@ -1,0 +1,34 @@
+name: CI
+
+on:
+    push:
+        branches: [main]
+    pull_request:
+
+permissions:
+    contents: read
+
+# A newer push to the same branch cancels the run that is still in progress.
+concurrency:
+    group: ci-${{ github.ref }}
+    cancel-in-progress: true
+
+jobs:
+    quality:
+        name: Code style, PHPStan, PHPUnit
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v7
+
+            # Same environment as locally: `ddev start` runs the post-start hooks
+            # (test database, composer install, migrations) from .ddev/config.yaml.
+            - uses: ddev/github-action-setup-ddev@v1
+
+            - name: Code style
+              run: ddev cs
+
+            - name: PHPStan
+              run: ddev stan --no-progress
+
+            - name: PHPUnit
+              run: ddev test
