@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+## Description: Fix the code style
+## Usage: cs-fix
+## Example: "ddev cs-fix"
+
+set -euo pipefail
+vendor/bin/php-cs-fixer fix "$@"

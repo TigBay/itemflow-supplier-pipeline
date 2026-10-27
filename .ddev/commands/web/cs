@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+## Description: Check the code style without changing files
+## Usage: cs
+## Example: "ddev cs"
+
+set -euo pipefail
+vendor/bin/php-cs-fixer check --diff "$@"

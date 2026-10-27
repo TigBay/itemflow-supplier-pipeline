@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+## Description: Run PHPStan (level 8, no baseline)
+## Usage: stan [phpstan options]
+## Example: "ddev stan"
+
+set -euo pipefail
+# PHPStan reads the compiled dev container, so it must exist and be current.
+bin/console cache:warmup --env=dev --quiet
+vendor/bin/phpstan analyse --memory-limit=1G "$@"
