@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+## Description: Run the PHPUnit suites (unit and integration)
+## Usage: test [phpunit options]
+## Example: "ddev test" or "ddev test --testsuite unit"
+
+set -euo pipefail
+bin/phpunit "$@"
